@@ -1,6 +1,29 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
+
+      <button *ngIf="mode == 0" ion-button outline color="secondary" (click)="askQuestion()">
+        Enter Question Mode
+      </button>
+      <button *ngIf="mode == 1" ion-button outline color="danger" (click)="cancelAskQuestion()">
+        Go back
+      </button>
+      <button *ngIf="mode == 1" ion-button outline color="secondary" (click)="endAskQuestion()">
+        End Question Mode (Question n. {{questionCounter}})
+      </button>
+
+      <button *ngIf="mode == 0" ion-button outline color="secondary" (click)="guessTarget()">
+        Enter Guess Mode
+      </button>
+      <button *ngIf="mode == 2" ion-button outline color="danger" (click)="cancelGuessTarget()">
+        Cancel
+      </button>
+      <button *ngIf="mode == 2" ion-button outline color="secondary" (click)="endGuessTarget()">
+        End Guessing Mode (Guess n. {{guessCounter}})
+      </button>
+
+    </ion-buttons>
+    <ion-buttons end>
       <button *ngIf="!nextConfirmed" ion-button (click)="confirmNext()">{{'SCENARIO.NEXT' | translate}}</button>
       <button *ngIf="nextConfirmed" ion-button (click)="next()" color="secondary">{{'SCENARIO.NEXT_CONFIRM' | translate}}</button>
     </ion-buttons>
@@ -11,23 +34,23 @@
   <ion-grid id="stimuli-grid">
     <ion-row>
       <ion-col *ngFor="let stim of stimuli.stims | slice:0:4">
-        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+        <img src="assets/img/{{stim.id}}.png" (click)="stimClicked(stim)" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col *ngFor="let stim of stimuli.stims | slice:4:8">
-        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+        <img src="assets/img/{{stim.id}}.png" (click)="stimClicked(stim)" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col *ngFor="let stim of stimuli.stims | slice:8:12">
-        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+        <img src="assets/img/{{stim.id}}.png" (click)="stimClicked(stim)" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col *ngFor="let stim of stimuli.stims | slice:12:16">
-        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+        <img src="assets/img/{{stim.id}}.png" (click)="stimClicked(stim)" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
     </ion-row>
-  </ion-grid> 
+  </ion-grid>
 </ion-content>

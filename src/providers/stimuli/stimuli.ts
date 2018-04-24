@@ -22,7 +22,7 @@ export class Stimuli {
 
   //stimuli
   stims: Stim[] = [];
-  target: string;
+  targetStimIndex: number;
 
   
   constructor(private utils: Utils, private platform: Platform) {
@@ -46,16 +46,25 @@ export class Stimuli {
   initializeConditions() {
     this.initialTimestamp = Date.now();
     
-    let imgs = STIMULIS;
-    this.utils.shuffleArray(imgs);
-    this.target = this.utils.pickRandomFromArray(imgs);
+    let ids = STIMULIS;
+    this.utils.shuffleArray(ids);
+    const targetId = this.utils.pickRandomFromArray(ids);
 
-    for (let img of imgs) {
-      this.stims.push(new Stim(img, false, img == this.target));
+    let i = 0;
+    for (let id of ids) {
+      this.stims.push(new Stim(id, false, id == targetId));
+      if (id == targetId) {
+        this.targetStimIndex = i;
+      }
+      i++;
     }
     
     //this.pickCondition();
     //this.setupScenarios();
+  }
+
+  get targetStim() {
+    return this.stims[this.targetStimIndex];
   }
 
   pickCondition() {

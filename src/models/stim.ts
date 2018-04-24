@@ -1,16 +1,29 @@
 export class Stim {
-    img: string;
+    id: string;
     excluded: boolean = false;
     isTarget: boolean = false;
+
+    exlusionOrder: number;
+    exclusionMode: number;
+    questionNumber: number;
+    guessNumber: number;
   
-    constructor(img, excluded, isTarget) {
-      this.img = img;
+    constructor(id, excluded, isTarget) {
+      this.id = id;
       this.excluded = excluded;
       this.isTarget = isTarget;
     }
   
-    clicked() {
+    exclude(exlusionOrder: number, exclusionMode: number, questionNumber, guessNumber) {
       this.excluded = true;
+      this.exlusionOrder = exlusionOrder;
+      this.exclusionMode = exclusionMode;
+      this.questionNumber = questionNumber;
+      this.guessNumber = guessNumber;
+    }
+
+    cancelExclude() {
+      this.excluded = false;
     }
   
     get borderColor() {
