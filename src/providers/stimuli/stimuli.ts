@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { Utils } from '../utils/utils';
 import { Participant } from '../../models/participant';
+import { Stim } from '../../models/stim';
 import { STIMULIS } from './constants';
 
 @Injectable()
@@ -18,6 +19,10 @@ export class Stimuli {
   participant: Participant;
   conditionCounterOverride: number = null;
   runInBrowser: boolean = false;
+
+  //stimuli
+  stims: Stim[] = [];
+  target: string;
 
   
   constructor(private utils: Utils, private platform: Platform) {
@@ -39,7 +44,16 @@ export class Stimuli {
   }
 
   initializeConditions() {
-    this.initialTimestamp = Date.now(); 
+    this.initialTimestamp = Date.now();
+    
+    let imgs = STIMULIS;
+    this.utils.shuffleArray(imgs);
+    this.target = this.utils.pickRandomFromArray(imgs);
+
+    for (let img of imgs) {
+      this.stims.push(new Stim(img, false, img == this.target));
+    }
+    
     //this.pickCondition();
     //this.setupScenarios();
   }

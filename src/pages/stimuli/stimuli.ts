@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Stimuli, Utils } from '../../providers/providers';
+import { STIMULIS } from '../../providers/stimuli/constants';
 
 
 @IonicPage()
@@ -16,6 +17,8 @@ export class StimuliPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private stimuli: Stimuli, 
     private utils: Utils, private translate: TranslateService) {
 
+      //TODO: remove!!!!
+      this.stimuli.initializeConditions();
     
   }
 

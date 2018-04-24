@@ -8,29 +8,26 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-
-    <ion-row id="top">
-      <ion-col></ion-col>
-      <ion-col col-8 text-center>
-        <div class="content-wrapper">
-          gjgjytjt
-        </div>
+  <ion-grid id="stimuli-grid">
+    <ion-row>
+      <ion-col *ngFor="let stim of stimuli.stims | slice:0:4">
+        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
-      <ion-col></ion-col>
     </ion-row>
-
-    <ion-row id="half">
-      <ion-col></ion-col>
-      <ion-col col-3 text-center>
-        tyjytjytjytjytj
+    <ion-row>
+      <ion-col *ngFor="let stim of stimuli.stims | slice:4:8">
+        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
       </ion-col>
-      <ion-col></ion-col>
     </ion-row>
-
-    <ion-row id="history">
-      rthtrhtrhtrhtr
+    <ion-row>
+      <ion-col *ngFor="let stim of stimuli.stims | slice:8:12">
+        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+      </ion-col>
     </ion-row>
-
-  </ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let stim of stimuli.stims | slice:12:16">
+        <img src="assets/img/{{stim.img}}.png" (click)="stim.clicked()" [style.border-color]="stim.borderColor" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 </ion-content>
