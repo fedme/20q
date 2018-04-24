@@ -1,0 +1,32 @@
+page-registration {
+
+  /*ion-content {
+    background: none;
+    background-color: transparent !important;
+  }*/
+
+  ion-grid {
+    margin-top: 50px;
+  }
+
+  ion-row {
+    padding-top: 15px;
+  }
+
+  input {
+    text-align: right;
+  }
+
+  .content-wrapper {
+    padding: 50px;
+    background: beige;
+    border-radius: 10px;
+    font-size: large;
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+  }
+  
+}

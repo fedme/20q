@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button *ngIf="!nextConfirmed" ion-button (click)="confirmNext()">{{'SCENARIO.NEXT' | translate}}</button>
+      <button *ngIf="nextConfirmed" ion-button (click)="next()" color="secondary">{{'SCENARIO.NEXT_CONFIRM' | translate}}</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+
+    <ion-row id="top">
+      <ion-col></ion-col>
+      <ion-col col-8 text-center>
+        <div class="content-wrapper">
+          gjgjytjt
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row id="half">
+      <ion-col></ion-col>
+      <ion-col col-3 text-center>
+        tyjytjytjytjytj
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row id="history">
+      rthtrhtrhtrhtr
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

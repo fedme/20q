@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button outline>
+        Records: {{ data.recordsNumber }}
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button outline color="secondary" (click)="showRecords()">
+        Show records
+      </button>
+      <button ion-button outline color="secondary" (click)="data.exportRecordsAsJSON()">
+        Records to json file
+      </button>
+    </ion-buttons>
+    <ion-title>iSearch 20Q</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col col-6 text-center>
+        <div class="content-wrapper">
+          <h1 translate [translateParams]="">REGISTRATION.TITLE</h1>
+          <form>
+            <ion-list>
+              <ion-item>
+                <ion-label>{{'REGISTRATION.CODE_LABEL' | translate}}</ion-label>
+                <ion-input #focusInput type="number" [(ngModel)]="stimuli.participant.code" name="code" autocomplete="off" autocorrect="off"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>{{'REGISTRATION.GENDER_LABEL' | translate}}</ion-label>
+                <ion-select [(ngModel)]="stimuli.participant.gender" name="gender">
+                  <ion-option value="male">{{'REGISTRATION.MALE' | translate}}</ion-option>
+                  <ion-option value="female">{{'REGISTRATION.FEMALE' | translate}}</ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>{{'REGISTRATION.AGE_LABEL' | translate}}</ion-label>
+                <ion-input #focusInput type="number" [(ngModel)]="stimuli.participant.age" name="age" autocomplete="off" autocorrect="off"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="stimuli.participant.age != null && stimuli.participant.age < 18">
+                <ion-label>{{'REGISTRATION.GRADE_LABEL' | translate}}</ion-label>
+                <ion-input #focusInput type="number" [(ngModel)]="stimuli.participant.grade" name="grade" autocomplete="off" autocorrect="off"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Language</ion-label>
+                <ion-select [(ngModel)]="lang" name="lang">
+                  <ion-option *ngFor="let lang of availableLangs" value="{{lang}}">{{lang}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </form>
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col text-center>
+        <button ion-button large (click)="handleRegistration()">{{'REGISTRATION.SUBMIT' | translate}}</button>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

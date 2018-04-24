@@ -1,0 +1,28 @@
+{
+    "REGISTRATION": {
+      "TITLE": "Enter participant data",
+      "CODE_LABEL": "Participant code",
+      "GENDER_LABEL": "Participant gender",
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "AGE_LABEL": "Participant age",
+      "GRADE_LABEL": "Participant grade",
+      "SUBMIT": "Begin experiment"
+    },
+    "COVER_STORY": {
+      "TEXT": "Here are some monsters from the planet Apres. <br>We're going to hear some stories about them. <br>In the stories, these monsters are going to ask questions, you will have to tell me how good you think these questions are and we’re going to give these monsters sweets for their questions. <br>If they’re good questions we’re going to give them lots of sweets, if they’re bad, we’re going to give them only a few sweets.",
+      "NEXT": "Next",
+      "NEXT_CONFIRM": "Next (press again to confirm)"
+    },
+    "SCENARIO": {
+      "CONFIRM": "Confirm",
+      "NEXT": "Next",
+      "NEXT_CONFIRM": "Next (press again to confirm)"
+    },
+    "END": {
+      "WELL_DONE": "Well done!",
+      "PLAY_AGAIN": "Play again",
+      "PLAY_AGAIN_CONFIRM": "Play again (press again to confirm)"
+    }
+  
+}
