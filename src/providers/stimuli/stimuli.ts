@@ -51,6 +51,7 @@ export class Stimuli {
     const targetId = this.utils.pickRandomFromArray(ids);
 
     let i = 0;
+    this.stims = [];
     for (let id of ids) {
       this.stims.push(new Stim(id, false, id == targetId));
       if (id == targetId) {

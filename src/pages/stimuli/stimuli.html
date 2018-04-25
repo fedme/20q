@@ -31,8 +31,8 @@
 
     </ion-buttons>
     <ion-buttons end>
-      <button *ngIf="!nextConfirmed" ion-button outline color="danger" (click)="confirmNext()">{{'STIMULI.END' | translate}}</button>
-      <button *ngIf="nextConfirmed" ion-button outline color="danger" (click)="next()" color="secondary">{{'STIMULI.END_CONFIRM' | translate}}</button>
+      <button *ngIf="mode == 0 && !nextConfirmed" ion-button outline color="danger" (click)="confirmNext()">{{'STIMULI.END' | translate}}</button>
+      <button *ngIf="mode == 0 && nextConfirmed" ion-button outline color="danger" (click)="next()" color="secondary">{{'STIMULI.END_CONFIRM' | translate}}</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
