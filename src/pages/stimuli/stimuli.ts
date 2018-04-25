@@ -14,7 +14,7 @@ export class StimuliPage {
 
   mode: Mode = Mode.View;
 
-  exclusionCounter: number = 1;
+  exclusionCounter: number = 0;
   questionCounter: number = 0;
   guessCounter: number = 0;
   revealedTarget: boolean = false;
