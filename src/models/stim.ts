@@ -24,6 +24,10 @@ export class Stim {
 
     cancelExclude() {
       this.excluded = false;
+      this.exlusionOrder = null;
+      this.exclusionMode = null;
+      this.questionNumber = null;
+      this.guessNumber = null;
     }
   
     get borderColor() {

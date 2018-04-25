@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Stimuli, Utils } from '../../providers/providers';
+import { Stimuli, Utils, Data } from '../../providers/providers';
 import { Stim } from '../../models/stim';
 
 
@@ -17,15 +17,12 @@ export class StimuliPage {
   exclusionCounter: number = 1;
   questionCounter: number = 0;
   guessCounter: number = 0;
-
+  revealedTarget: boolean = false;
   nextConfirmed: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private stimuli: Stimuli, 
     private utils: Utils, private translate: TranslateService, private alertCtrl: AlertController,
-    private toastCtrl: ToastController) {
-
-      //TODO: remove!!!!
-      this.stimuli.initializeConditions();
+    private toastCtrl: ToastController, private data: Data) {
     
   }
 
@@ -55,6 +52,31 @@ export class StimuliPage {
 
   endGuessTarget() {
     this.mode = Mode.View;
+  }
+
+  revealTarget() {
+    let alert = this.alertCtrl.create({
+      title: 'Reveal target?',
+      message: 'Are you sure you want to reveal the target?',
+      buttons: [
+        {
+          text: 'Yes, reveal',
+          handler: () => {
+            this.revealedTarget = true;
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {}
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  unrevealTarget() {
+    this.revealedTarget = false;
   }
 
   stimClicked(stim: Stim) {
@@ -121,8 +143,8 @@ export class StimuliPage {
 
   next() {
     if (!this.nextConfirmed) return;
-    console.log(this.stimuli.stims);
-    //this.navCtrl.setRoot("ScenarioQuestionPage");
+    this.data.save();
+    this.navCtrl.setRoot("EndPage");
   }
   
 }

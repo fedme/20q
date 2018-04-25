@@ -84,7 +84,7 @@ export class Data {
     data.set("session_duration", duration);
 
     // save conditions data
-    data.set("condition_index", this.stimuli.conditionId);
+    data.set("data", this.stimuli.stims);
 
     this.data = data;
 

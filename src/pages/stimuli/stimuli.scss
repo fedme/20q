@@ -1,5 +1,9 @@
 page-stimuli {
 
+  .row{
+    align-items: center;
+  }
+
   ion-content {
     background-color: beige !important;
   }
@@ -7,6 +11,10 @@ page-stimuli {
   #stimuli-grid {
 
     max-width: 650px;
+
+    .target {
+      background: lightgreen;
+    }
 
     ion-col {
       padding-top: 0;
@@ -17,6 +25,7 @@ page-stimuli {
         margin: 3px;
         border-radius: 10%;
         background: white;
+        cursor: pointer;
       }
 
     }

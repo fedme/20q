@@ -9,15 +9,18 @@
       "GRADE_LABEL": "Participant grade",
       "SUBMIT": "Begin experiment"
     },
-    "COVER_STORY": {
-      "TEXT": "Here are some monsters from the planet Apres. <br>We're going to hear some stories about them. <br>In the stories, these monsters are going to ask questions, you will have to tell me how good you think these questions are and we’re going to give these monsters sweets for their questions. <br>If they’re good questions we’re going to give them lots of sweets, if they’re bad, we’re going to give them only a few sweets.",
-      "NEXT": "Next",
-      "NEXT_CONFIRM": "Next (press again to confirm)"
-    },
-    "SCENARIO": {
-      "CONFIRM": "Confirm",
-      "NEXT": "Next",
-      "NEXT_CONFIRM": "Next (press again to confirm)"
+    "STIMULI": {
+      "ENTER_QUESTION_MODE": "Enter Question Mode",
+      "CANCEL": "Cancel",
+      "END_QUESTION_MODE": "End Question Mode",
+      "QUESTION_N": "Question n.",
+      "ENTER_GUESS_MODE": "Enter Guess Mode",
+      "END_GUESS_MODE": "End Guess Mode",
+      "GUESS_N": "Guess n.",
+      "END": "End experiment",
+      "END_CONFIRM": "Confirm ending experiment",
+      "REVEAL_TARGET": "Reveal target",
+      "UNREVEAL_TARGET": "Hide target"
     },
     "END": {
       "WELL_DONE": "Well done!",
