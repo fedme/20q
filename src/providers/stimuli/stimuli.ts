@@ -23,6 +23,9 @@ export class Stimuli {
   //stimuli
   stims: Stim[] = [];
   targetStimIndex: number;
+  nQueries: number;
+  nQuestions: number;
+  nGuesses: number;
 
   
   constructor(private utils: Utils, private platform: Platform) {

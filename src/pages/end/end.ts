@@ -17,7 +17,6 @@ export class EndPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EndPage');
-    this.data.save();
   }
 
   confirmNext() {

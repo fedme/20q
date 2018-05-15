@@ -15,6 +15,7 @@ export class StimuliPage {
   mode: Mode = Mode.View;
 
   exclusionCounter: number = 0;
+  queryCounter: number = 0;
   questionCounter: number = 0;
   guessCounter: number = 0;
   revealedTarget: boolean = false;
@@ -28,11 +29,13 @@ export class StimuliPage {
 
   askQuestion() {
     this.questionCounter++;
+    this.queryCounter++;
     this.mode = Mode.Question;
   }
 
   cancelAskQuestion() {
     this.questionCounter--;
+    this.queryCounter--;
     this.mode = Mode.View;
   }
 
@@ -42,11 +45,13 @@ export class StimuliPage {
 
   guessTarget() {
     this.guessCounter++;
+    this.queryCounter++;
     this.mode = Mode.Guess;
   }
 
   cancelGuessTarget() {
     this.guessCounter--;
+    this.queryCounter--;
     this.mode = Mode.View;
   }
 
@@ -100,7 +105,8 @@ export class StimuliPage {
         this.exclusionCounter, 
         this.mode, 
         this.questionCounter, 
-        this.guessCounter
+        this.guessCounter,
+        this.queryCounter
       );
     }
     
@@ -143,6 +149,9 @@ export class StimuliPage {
 
   next() {
     if (!this.nextConfirmed) return;
+    this.stimuli.nQueries = this.queryCounter;
+    this.stimuli.nQuestions = this.questionCounter;
+    this.stimuli.nGuesses = this.guessCounter;
     this.data.save();
     this.navCtrl.setRoot("EndPage");
   }

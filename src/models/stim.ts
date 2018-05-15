@@ -3,8 +3,9 @@ export class Stim {
     excluded: boolean = false;
     isTarget: boolean = false;
 
-    exlusionOrder: number;
+    exclusionOrder: number;
     exclusionMode: number;
+    queryNumber: number;
     questionNumber: number;
     guessNumber: number;
   
@@ -14,17 +15,18 @@ export class Stim {
       this.isTarget = isTarget;
     }
   
-    exclude(exlusionOrder: number, exclusionMode: number, questionNumber, guessNumber) {
+    exclude(exclusionOrder: number, exclusionMode: number, questionNumber, guessNumber, queryNumber) {
       this.excluded = true;
-      this.exlusionOrder = exlusionOrder;
+      this.exclusionOrder = exclusionOrder;
       this.exclusionMode = exclusionMode;
       this.questionNumber = questionNumber;
       this.guessNumber = guessNumber;
+      this.queryNumber = queryNumber;
     }
 
     cancelExclude() {
       this.excluded = false;
-      this.exlusionOrder = null;
+      this.exclusionOrder = null;
       this.exclusionMode = null;
       this.questionNumber = null;
       this.guessNumber = null;

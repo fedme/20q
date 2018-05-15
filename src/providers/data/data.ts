@@ -79,12 +79,54 @@ export class Data {
     data.set("participant_gender", this.stimuli.participant.gender);
 
     // save session data
+    data.set("session_datetime", Date.now());
     data.set("session_date", dateString);
     data.set("session_time", timeString);
     data.set("session_duration", duration);
 
-    // save conditions data
-    data.set("data", this.stimuli.stims);
+    /* parse questions
+    const questions = [];
+    for (let qn=0; qn<this.stimuli.nQuestions; qn++) {
+      questions[qn] = this.stimuli.stims.filter(stim => 
+        stim.excluded && stim.exclusionMode == 1 && stim.questionNumber == qn + 1);
+      questions[qn].sort((a, b) => { return a.exclusionOrder - b.exclusionOrder});
+    }
+
+    console.log("Questions", questions);
+
+    // parse guesses
+    const guesses = [];
+    for (let gn=0; gn<this.stimuli.nGuesses; gn++) {
+      guesses[gn] = this.stimuli.stims.filter(stim => 
+        stim.excluded && stim.exclusionMode == 2 && stim.guessNumber == gn + 1);
+      questions[gn].sort((a, b) => { return a.exclusionOrder - b.exclusionOrder});
+    }
+
+    console.log("Guesses", guesses);
+    */
+
+
+    // parse queries
+    let nStims = this.stimuli.stims.length;
+    const queries = [];
+    for (let qn=0; qn<this.stimuli.nQueries; qn++) {
+      const stims = this.stimuli.stims.filter(stim => 
+        stim.excluded && stim.queryNumber == qn + 1);
+      stims.sort((a, b) => { return a.exclusionOrder - b.exclusionOrder});
+      queries[qn] = {
+        "type": stims[0].exclusionMode,
+        "n_stims_pre": nStims,
+        "n_exluded_stims": stims.length,
+        "n_stims_post": nStims - stims.length,
+        "excluded_stims": stims
+      }
+      nStims = nStims - stims.length;
+    }
+
+    console.log("Queries", queries);
+
+    data.set("n_queries", queries.length)
+    data.set("queries", queries)
 
     this.data = data;
 
