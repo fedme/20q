@@ -13,7 +13,7 @@
         Records to json file
       </button>
     </ion-buttons>
-    <ion-title>iSearch 20Q</ion-title>
+    <ion-title>{{stimuli.appInfo.name}} v{{stimuli.appInfo.version}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -63,7 +63,7 @@
     <ion-row>
       <ion-col></ion-col>
       <ion-col text-center>
-        <button ion-button large (click)="handleRegistration()">{{'REGISTRATION.SUBMIT' | translate}}</button>
+        <button ion-button large (click)="validateRegistration()">{{'REGISTRATION.SUBMIT' | translate}}</button>
       </ion-col>
       <ion-col></ion-col>
     </ion-row>

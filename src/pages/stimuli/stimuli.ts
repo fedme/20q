@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
-import { Stimuli, Utils, Data } from '../../providers/providers';
+import { Stimuli, Data } from '../../providers/providers';
 import { Stim } from '../../models/stim';
 
 
@@ -21,9 +20,14 @@ export class StimuliPage {
   revealedTarget: boolean = false;
   nextConfirmed: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private stimuli: Stimuli, 
-    private utils: Utils, private translate: TranslateService, private alertCtrl: AlertController,
-    private toastCtrl: ToastController, private data: Data) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private stimuli: Stimuli,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController, 
+    private data: Data
+  ) {
     
   }
 

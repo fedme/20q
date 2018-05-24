@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { TranslateService } from '@ngx-translate/core';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
-import { RegistrationPage } from '../pages/registration/registration';
 import { Stimuli} from '../providers/providers';
 
 declare var cordova: any;
@@ -17,10 +15,15 @@ declare var cordova: any;
 export class MyApp {
   rootPage: any = 'RegistrationPage';
 
-  constructor(private translate: TranslateService, private platform: Platform, private statusBar: StatusBar,
-    private splashScreen: SplashScreen, private androidFullScreen: AndroidFullScreen,
-    private stimuli: Stimuli) {
-    platform.ready().then(() => {
+  constructor(
+    private translate: TranslateService, 
+    private platform: Platform, 
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen, 
+    private androidFullScreen: AndroidFullScreen,
+    private stimuli: Stimuli
+  ) {
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.enterPinnedMode();

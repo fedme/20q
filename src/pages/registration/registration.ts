@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ModalController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Stimuli, Data } from '../../providers/providers';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -15,14 +15,19 @@ export class RegistrationPage {
   lang: string = "en";
   availableLangs: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private stimuli: Stimuli, private data: Data, private toastCtrl: ToastController,
-    private modalCtrl: ModalController, private platform: Platform, private translate: TranslateService) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private stimuli: Stimuli, 
+    private data: Data,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private translate: TranslateService
+  ) {
       
       // Parse available langs
       this.availableLangs = this.translate.langs;
       console.log('available langs: ', this.availableLangs);
-
 
       // Initialize providers
       this.stimuli.initialize();
@@ -44,8 +49,6 @@ export class RegistrationPage {
   }
 
   handleRegistration() {
-    if (this.validateRegistration()) {
-
       // set Language
       this.stimuli.setLang(this.lang);
       localStorage.setItem('lang', this.lang);
@@ -53,21 +56,36 @@ export class RegistrationPage {
       // initialize stimuli
       this.stimuli.initializeConditions();
       this.navCtrl.setRoot('StimuliPage');
-    }
   }
 
   validateRegistration() {
     const ageNull = this.stimuli.participant.age == null;
     const genderNull = this.stimuli.participant.gender == null;
     if (ageNull || genderNull) {
-      let toast = this.toastCtrl.create({
-        message: 'Please fill all the required fields',
-        duration: 3000
+      let alert = this.alertCtrl.create({
+        title: 'Proceed without age/gender?',
+        message: 'Are you sure you want to proceed without entering age/gender?',
+        buttons: [
+          {
+            text: 'Yes',
+            handler: () => {
+              this.stimuli.participant.age = 0;
+              this.stimuli.participant.grade = 0;
+              this.handleRegistration();
+            }
+          },
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {}
+          }
+        ]
       });
-      toast.present();
-      return false;
+      alert.present();
     }
-    return true;
+    else {
+      this.handleRegistration();
+    }
   }
 
   showRecords() {

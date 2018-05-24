@@ -59,17 +59,8 @@ export class Data {
     // calculate exp duration
     const duration = Math.floor(Date.now() - this.stimuli.initialTimestamp);
 
-    // build date and time strings
-    const currentdate = new Date();
-    const day = ("0" + currentdate.getDate()).slice(-2);
-    const month = ("0" + (currentdate.getMonth() + 1)).slice(-2);
-    const year = currentdate.getFullYear();
-    const dateString = day + "/" + month + "/" + year;
-    const timeString = currentdate.getHours().toFixed(2) + ":" + currentdate.getMinutes().toFixed(2);
-
     // data map
     let data = new Map();
-    let i, j = 0;
 
     // save participant data
     data.set("participant_code", this.stimuli.participant.code);
@@ -80,31 +71,8 @@ export class Data {
 
     // save session data
     data.set("session_datetime", Date.now());
-    data.set("session_date", dateString);
-    data.set("session_time", timeString);
+    data.set("session_datetime_human", Date.now().toLocaleString());
     data.set("session_duration", duration);
-
-    /* parse questions
-    const questions = [];
-    for (let qn=0; qn<this.stimuli.nQuestions; qn++) {
-      questions[qn] = this.stimuli.stims.filter(stim => 
-        stim.excluded && stim.exclusionMode == 1 && stim.questionNumber == qn + 1);
-      questions[qn].sort((a, b) => { return a.exclusionOrder - b.exclusionOrder});
-    }
-
-    console.log("Questions", questions);
-
-    // parse guesses
-    const guesses = [];
-    for (let gn=0; gn<this.stimuli.nGuesses; gn++) {
-      guesses[gn] = this.stimuli.stims.filter(stim => 
-        stim.excluded && stim.exclusionMode == 2 && stim.guessNumber == gn + 1);
-      questions[gn].sort((a, b) => { return a.exclusionOrder - b.exclusionOrder});
-    }
-
-    console.log("Guesses", guesses);
-    */
-
 
     // parse queries
     let nStims = this.stimuli.stims.length;
