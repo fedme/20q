@@ -1,79 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
+import { Device } from '@ionic-native/device';
+import { Platform } from 'ionic-angular';
 import { Stimuli } from '../stimuli/stimuli';
 import { Api } from '../api/api';
+import { AppInfo } from '../stimuli/app-info';
 
 @Injectable()
 export class Data {
 
+  serverURI: string = "";
   recordsNumber: number;
-  data: Map<string, any>;
   allRecords;
 
-  constructor(private storage: Storage, private filesystem: File, private api: Api,
-    private stimuli: Stimuli) {
+  constructor(
+    private storage: Storage, 
+    private filesystem: File,
+    private device: Device,
+    private platform: Platform,
+    private api: Api,
+    private stimuli: Stimuli
+  ) {
       console.log('Hello Data Provider');
   }
 
   initialize() {
-    this.data = null;
     this.allRecords = null;
     this.updateRecordsNumber();
   }
 
-  save() {
-    console.log("[DEBUG] DB driver: " + this.storage.driver);
-    const recordId = "record_" + this.stimuli.participant.code;
-    let dataObject = this.serializeStimuliData();
-    console.log("[DEBUG] Serialized data: ", dataObject);
-
-    if (this.stimuli.runInBrowser) {
-      const jsonData = JSON.stringify(dataObject);
-      console.log("[saving data][browser][participant_code]", this.stimuli.participant.code);
-      console.log("[saving data][browser][data]", dataObject);
-      //console.log("[saving data][browser][jsonData]", jsonData);
-
-      const requestBody = {
-        participant_code: this.stimuli.participant.code,
-        condition: this.stimuli.conditionId,
-        reward: dataObject["reward_mturk_total_euros"],
-        data: jsonData
-      };
-      this.api.post('store-data/halo', requestBody).subscribe(
-        (resp) => {
-          console.log("[saving data][browser][POST] resp", resp);
-        }, 
-        (err) => {
-          console.log("[saving data][browser][POST] ERROR!!!", err);
-        }
-      );
-    }
-    else {
-      console.log("[saving data][app][data]", dataObject);
-      this.storage.set(recordId, dataObject);
-    }
-  }
-
   serializeStimuliData() {
-    // calculate exp duration
-    const duration = Math.floor(Date.now() - this.stimuli.initialTimestamp);
-
-    // data map
     let data = new Map();
-
-    // save participant data
-    data.set("participant_code", this.stimuli.participant.code);
-    data.set("participant_age", this.stimuli.participant.age);
-    data.set("participant_age_group", this.stimuli.participant.age);
-    data.set("participant_grade", this.stimuli.participant.grade);
-    data.set("participant_gender", this.stimuli.participant.gender);
-
-    // save session data
-    data.set("session_datetime", Date.now());
-    data.set("session_datetime_human", Date.now().toLocaleString());
-    data.set("session_duration", duration);
-
     // parse queries
     let nStims = this.stimuli.stims.length;
     const queries = [];
@@ -90,26 +48,99 @@ export class Data {
       }
       nStims = nStims - stims.length;
     }
-
-    console.log("Queries", queries);
-
     data.set("n_queries", queries.length)
     data.set("queries", queries)
-
-    this.data = data;
-
     return this.mapToObj(data);
   }
 
-  getSessionDataAsHtml() {
-    let out = "<table border='1'><tr><th>key</th><th>value</th></tr>";
-    if (this.data != null) {
-      this.data.forEach((value, key, map) => {
-        out = out + "<tr><td>" + key + "</td><td>" + value + "</td></tr>";
-      });
+  save() {
+    // Generate record ID
+    console.log("[DEBUG] DB driver: " + this.storage.driver);
+    const recordId = "record_" + this.stimuli.participant.code;
+
+    // Create data object
+    let dataObject = {
+      "participant": this.getParticipantInfo(),
+      "app": this.getAppInfo(),
+      "session": this.getSessionInfo(),
+      "data": this.serializeStimuliData(),
+      "platformInfo": this.getPlatformInfo()
     }
-    out = out + "</table>";
-    return out;
+    console.log("[DEBUG] Serialized data: ", dataObject);
+
+    // Save data
+    if (this.stimuli.runInBrowser) this.postDataToServer(dataObject);
+    else this.storage.set(recordId, dataObject);
+  }
+
+  getParticipantInfo() {
+    return {
+      "code": this.stimuli.participant.code,
+      "age": this.stimuli.participant.age,
+      "ageGroup": this.stimuli.participant.age,
+      "grade": this.stimuli.participant.grade,
+      "gender": this.stimuli.participant.gender
+    }
+  }
+
+  getSessionInfo() {
+    const now = new Date();
+    const duration = Math.floor(Date.now() - this.stimuli.initialTimestamp);
+    return {
+      "datetime": now.toJSON(),
+      "duration": duration
+    }
+  }
+
+  getAppInfo() {
+    return {
+      "id": AppInfo.id,
+      "version": AppInfo.version,
+      "nameLabel": AppInfo.nameLabel,
+      "lang": localStorage.getItem('lang')
+    }
+  }
+
+  getPlatformInfo() {
+    return {
+      'platform': {
+        'userAgent': this.platform.userAgent(),
+        'platforms': this.platform.platforms(),
+        'navigatorPlatform': this.platform.navigatorPlatform(),
+        'height': this.platform.height(),
+        'width': this.platform.width()
+      },
+      'device': {
+        'uuid': this.device.uuid,
+        'model': this.device.model,
+        'cordovaVersion': this.device.cordova,
+        'version': this.device.version,
+        'manufacturer': this.device.manufacturer,
+        'serial': this.device.serial
+      }
+    }
+  }
+
+  postDataToServer(dataObject: any) {
+    const jsonData = JSON.stringify(dataObject);
+    console.log("[saving data][browser][participant_code]", this.stimuli.participant.code);
+    console.log("[saving data][browser][data]", dataObject);
+
+    const requestBody = {
+      participant_code: this.stimuli.participant.code,
+      condition: this.stimuli.conditionId,
+      reward: dataObject["reward_mturk_total_euros"],
+      data: jsonData
+    };
+
+    this.api.post(this.serverURI, requestBody).subscribe(
+      (resp) => {
+        console.log("[saving data][browser][POST] resp", resp);
+      },
+      (err) => {
+        console.log("[saving data][browser][POST] ERROR!!!", err);
+      }
+    );
   }
 
   loadAllRecords() {

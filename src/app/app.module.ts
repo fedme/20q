@@ -7,18 +7,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+import { Device } from '@ionic-native/device';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Pro } from '@ionic/pro';
 
 import { MyApp } from './app.component';
-import { APP_INFO } from '../providers/stimuli/app-info';
+import { AppInfo } from '../providers/stimuli/app-info';
 import { Api, Utils, Data, Stimuli } from '../providers/providers';
 
 
 // Ionic Pro
-Pro.init(APP_INFO.id, {
-  appVersion: APP_INFO.version
+Pro.init(AppInfo.id, {
+  appVersion: AppInfo.version
 })
 
 
@@ -82,6 +83,7 @@ export class MyErrorHandler implements ErrorHandler {
     SplashScreen,
     AndroidFullScreen,
     File,
+    Device,
     IonicErrorHandler,
     [{ provide: ErrorHandler, useClass: MyErrorHandler }],
     Api, 

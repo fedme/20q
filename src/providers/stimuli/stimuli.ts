@@ -4,12 +4,12 @@ import { Utils } from '../utils/utils';
 import { Participant } from '../../models/participant';
 import { Stim } from '../../models/stim';
 import { STIMULIS } from './constants';
-import { APP_INFO } from './app-info';
+import { AppInfo } from './app-info';
 
 @Injectable()
 export class Stimuli {
 
-  appInfo: any = APP_INFO;
+  appInfo: AppInfo = AppInfo;
 
   public langChangedEvent: EventEmitter<string> = new EventEmitter();
   lang: string = "en";
