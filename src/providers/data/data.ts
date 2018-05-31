@@ -128,8 +128,6 @@ export class Data {
 
     const requestBody = {
       participant_code: this.stimuli.participant.code,
-      condition: this.stimuli.conditionId,
-      reward: dataObject["reward_mturk_total_euros"],
       data: jsonData
     };
 
