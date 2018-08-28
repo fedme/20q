@@ -56,10 +56,11 @@ export class Data {
   save() {
     // Generate record ID
     console.log("[DEBUG] DB driver: " + this.storage.driver);
-    const recordId = "record_" + this.stimuli.participant.code;
+    const recordId = this.stimuli.participant.code + "_" + Date.now();
 
     // Create data object
     let dataObject = {
+      "id": recordId,
       "participant": this.getParticipantInfo(),
       "app": this.getAppInfo(),
       "session": this.getSessionInfo(),
