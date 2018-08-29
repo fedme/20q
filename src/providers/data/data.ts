@@ -6,6 +6,7 @@ import { Platform } from 'ionic-angular';
 import { Stimuli } from '../stimuli/stimuli';
 import { Api } from '../api/api';
 import { AppInfo } from '../stimuli/app-info';
+import shortid from 'shortid';
 
 @Injectable()
 export class Data {
@@ -54,9 +55,13 @@ export class Data {
   }
 
   save() {
-    // Generate record ID
+    
     console.log("[DEBUG] DB driver: " + this.storage.driver);
-    const recordId = this.stimuli.participant.code + "_" + Date.now();
+
+    // Generate unique short id
+    const recordId = shortid.generate();
+
+    console.log("[DEBUG] Saving data to DB...", recordId);
 
     // Create data object
     let dataObject = {
@@ -69,9 +74,16 @@ export class Data {
     }
     console.log("[DEBUG] Serialized data: ", dataObject);
 
-    // Save data
-    if (this.stimuli.runInBrowser) this.postDataToServer(dataObject);
-    else this.storage.set(recordId, dataObject);
+    // Save data...
+    if (this.stimuli.runInBrowser) {
+      // online
+      this.postDataToServer(dataObject);
+    } 
+    else {
+      // locally
+      this.storage.set(recordId, dataObject);
+    }
+
   }
 
   getParticipantInfo() {
