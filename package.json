@@ -28,6 +28,7 @@
     "@ionic-native/status-bar": "4.4.0",
     "@ionic/pro": "^2.0.3",
     "@ionic/storage": "2.1.3",
+    "@isearch-lab/cordova-plugin-screen-pinning": "git+https://github.com/raimaj/cordova-plugin-screen-pinning.git",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "cordova-android": "7.0.0",
@@ -59,7 +60,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-fullscreen": {},
       "cordova-sqlite-storage": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-screen-pinning": {}
     },
     "platforms": [
       "android"
