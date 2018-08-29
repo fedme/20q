@@ -96,5 +96,5 @@
         <variable name="MAX_STORE" value="2" />
     </plugin>
     <engine name="android" spec="7.0.0" />
-    <plugin name="cordova-plugin-screen-pinning" spec="https://github.com/raimaj/cordova-plugin-screen-pinning" />
+    <plugin name="cordova-plugin-screen-pinning" spec="@isearch-lab/cordova-plugin-screen-pinning@~0.0.1" />
 </widget>
