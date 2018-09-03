@@ -90,7 +90,7 @@ export class Data {
     return {
       "code": this.stimuli.participant.code,
       "age": this.stimuli.participant.age,
-      "ageGroup": this.stimuli.participant.age,
+      "ageGroup": this.stimuli.participant.ageGroup,
       "grade": this.stimuli.participant.grade,
       "gender": this.stimuli.participant.gender
     }
