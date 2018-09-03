@@ -69,7 +69,7 @@ export class MyErrorHandler implements ErrorHandler {
       }
     }),
     IonicStorageModule.forRoot({
-      name: 'data',
+      name: AppInfo.id,
       driverOrder: ['sqlite', 'indexeddb', 'websql']
     }),
     IonicModule.forRoot(MyApp)
