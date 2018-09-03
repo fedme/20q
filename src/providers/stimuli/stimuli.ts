@@ -33,7 +33,7 @@ export class Stimuli {
   
   constructor(private utils: Utils, private platform: Platform) {
     console.log('Hello Stimuli Provider');
-    this.participant = new Participant("nocode");
+    this.participant = new Participant("");
     //this.runInBrowser = this.platform.is('core') || this.platform.is('mobileweb'); TODO: not detecting windows UWA
     this.runInBrowser = false
     console.log("You are running", this.platform)
@@ -46,7 +46,7 @@ export class Stimuli {
   initialize() {
     this.shortVersion = false; 
     this.initialTimestamp = Date.now(); 
-    this.participant = new Participant("nocode");
+    this.participant = new Participant("");
   }
 
   initializeConditions() {
@@ -87,9 +87,9 @@ export class Stimuli {
 
 
   // TODO: age groups
-  getParticipantAgeGroup() {
-    if (this.participant.age >= 18) return 18;
-    return this.participant.age;
+  getParticipantAgeGroup(): string {
+    if (this.participant.age >= 18) return "18";
+    return this.participant.age + "";
   }
 
   setLang(langCode: string) {

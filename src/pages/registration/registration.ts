@@ -69,6 +69,7 @@ export class RegistrationPage {
           {
             text: 'Yes',
             handler: () => {
+              this.stimuli.participant.code = "nocode";
               this.stimuli.participant.age = 0;
               this.stimuli.participant.grade = 0;
               this.handleRegistration();
@@ -92,6 +93,8 @@ export class RegistrationPage {
     let recordsModal = this.modalCtrl.create("ViewRecordsPage");
     recordsModal.present();
   }
+
+  public convertToNumber(event):number {  return +event; }
 
   parseUrlParams() {
     let codeProvided = false;
