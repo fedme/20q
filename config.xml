@@ -95,6 +95,5 @@
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
     </plugin>
-    <plugin name="cordova-plugin-screen-pinning" spec="@isearch-lab/cordova-plugin-screen-pinning@1.0.3" />
     <engine name="android" spec="7.0.0" />
 </widget>
